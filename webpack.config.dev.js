@@ -3,7 +3,7 @@ import path from 'path';
 
 export default {
   debug: true,
-  devtool: 'inline-source-map',
+  devtool: 'inline-source-map', // or 'cheap-module-eval-source-map'
   noInfo: false,
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
@@ -20,8 +20,8 @@ export default {
     contentBase: path.resolve(__dirname, 'src')
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin(), // HMR
+    new webpack.NoErrorsPlugin() // Keeps errors from breaking HMR
   ],
   module: {
     loaders: [
