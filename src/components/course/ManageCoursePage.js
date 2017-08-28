@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
 
 import * as courseActions from '../../actions/courseActions';
+import { authorsFormattedForDropdown } from '../../selectors/selectors';
 import CourseForm from './CourseForm';
 
 export class ManageCoursePage extends React.Component {
@@ -53,7 +54,7 @@ export class ManageCoursePage extends React.Component {
       return;
     }
 
-    this.setState({saving: true})
+    this.setState({saving: true});
     this.props.actions.saveCourse(this.state.course)
       .then(() => this.redirect())
       .catch(error => {
@@ -114,16 +115,9 @@ function mapStateToProps(state, ownProps) {
     course = getCourseById(state.courses, courseId);
   }
 
-  const authorsFormattedForDropdown = state.authors.map(author => {
-    return {
-      value: author.id,
-      text: author.firstName + ' ' + author.lastName
-    };
-  });
-
   return {
     course: course,
-    authors: authorsFormattedForDropdown
+    authors: authorsFormattedForDropdown(state.authors)
   };
 }
 
